@@ -44,7 +44,7 @@ contract StakeToken is ERC20, Ownable {
     function totalStake() public view returns(uint256) {
         uint256 _totalStakes = 0;
         for(uint index = 0;index < stakeholders.length;index += 1) {
-            _totalStakes.add(stakes[stakeholders[index]]);
+            _totalStakes = _totalStakes.add(stakes[stakeholders[index]]);
         }
         return _totalStakes;
     }
@@ -52,7 +52,7 @@ contract StakeToken is ERC20, Ownable {
     function createStake(uint256 _stake) public {
         _burn(msg.sender, _stake);
         if (stakes[msg.sender] == 0) addStakeholder(msg.sender);
-        stakes[msg.sender].add(_stake);
+        stakes[msg.sender] = stakes[msg.sender].add(_stake);
     }
 
     function removeStake(uint256 _stake) public {
